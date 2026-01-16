@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useCreateDepartment, useUpdateDepartment } from "./useDepartments";
-import type { Department } from "./types";
+import type { DepartmentFormProps } from "./department.types";
 import TextInput from "../../components/TextField";
-
-interface DepartmentFormProps {
-  department?: Department | null;
-  onSuccess?: () => void;
-  formSubmitRef?: React.MutableRefObject<(() => Promise<void>) | null>;
-  formResetRef?: React.MutableRefObject<(() => void) | null>;
-}
 
 const DepartmentForm: React.FC<DepartmentFormProps> = ({
   department,
@@ -208,7 +201,7 @@ const DepartmentForm: React.FC<DepartmentFormProps> = ({
 
       {/* Description */}
       <div>
-        <label className="block text-sm font-semibold mb-2 dark:text-gray-300">
+        <label className="block text-sm font-semibold mb-2 text-white dark:text-gray-300">
           Description *
         </label>
         <textarea

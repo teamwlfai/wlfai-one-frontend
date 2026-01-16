@@ -8,22 +8,22 @@ export interface MenuItem {
 // Define all your menu items here with submenu
 export const menuItems: MenuItem[] = [
   {
-    path: "/",
+    path: "/admin/dashboards",
     label: "Dashboard",
     icon: "📊",
   },
   {
-    path: "/patients",
+    path: "/admin/patients",
     label: "Patients",
     icon: "👥",
   },
   {
-    path: "/appointments",
+    path: "/admin/appointments",
     label: "Appointments",
     icon: "📅",
   },
   {
-    path: "/departments",
+    path: "/admin/departments",
     label: "Departments",
     icon: "🏢",
   },

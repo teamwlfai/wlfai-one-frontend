@@ -6,7 +6,7 @@ import {
   useDeleteDepartment,
   useUpdateDepartment,
 } from "./useDepartments";
-import type { Department } from "./types";
+import type { Department } from "./department.types";
 import DepartmentForm from "./DepartmentForm";
 
 import DataTable from "../../components/DataTable";
@@ -103,14 +103,14 @@ const DepartmentList: React.FC = () => {
         <button
           onClick={() => actions?.onToggle?.(row)}
           disabled={updateDepartment.isPending}
-          className={`relative inline-flex h-5 w-10 items-center rounded-full transition-colors focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed ${
+          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed ${
             row.is_active
               ? "bg-black dark:bg-green-900"
               : "bg-gray-300 dark:bg-green-200"
           }`}
         >
           <span
-            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+            className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${
               row.is_active ? "translate-x-6" : "translate-x-1"
             }`}
           />
@@ -388,7 +388,7 @@ const DepartmentList: React.FC = () => {
         <DepartmentForm
           department={editingDepartment}
           onSuccess={handleFormSuccess}
-          onCancel={handleCloseDrawer}
+          // onCancel={handleCloseDrawer}
           formSubmitRef={formSubmitRef}
           formResetRef={formResetRef}
         />

@@ -5,7 +5,7 @@ import type {
   Department,
   CreateDepartmentDto,
   DepartmentsListResponse,
-} from "./types";
+} from "./department.types";
 
 // Query Keys
 export const departmentKeys = {

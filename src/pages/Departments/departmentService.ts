@@ -1,39 +1,36 @@
-import api from "../../api/index";
+import api from "../../api";
+import type { ApiResponse } from "../../api";
 import type {
   Department,
   CreateDepartmentDto,
   DepartmentsListResponse,
-} from "./types";
-
-interface GetDepartmentsParams {
-  page?: number;
-  limit?: number;
-  search?: string;
-  code?: string;
-  status?: string;
-  created_from?: string;
-  created_to?: string;
-  org_id?: string;
-  is_active?: boolean;
-}
+  GetDepartmentsParams,
+} from "./department.types";
 
 export const departmentService = {
   getDepartments: async (
     params?: GetDepartmentsParams
   ): Promise<DepartmentsListResponse> => {
-    const response = await api.get<DepartmentsListResponse>("/departments/", {
-      params,
-    });
+    const response = await api.get<ApiResponse<DepartmentsListResponse>>(
+      "/departments/",
+      { params }
+    );
+
     return response.data;
   },
 
   getDepartmentById: async (id: string): Promise<Department> => {
-    const response = await api.get<Department>(`/departments/${id}`);
+    const response = await api.get<ApiResponse<Department>>(
+      `/departments/${id}`
+    );
     return response.data;
   },
 
   createDepartment: async (data: CreateDepartmentDto): Promise<Department> => {
-    const response = await api.post<Department>("/departments/", data);
+    const response = await api.post<ApiResponse<Department>>(
+      "/departments/",
+      data
+    );
     return response.data;
   },
 
@@ -41,7 +38,10 @@ export const departmentService = {
     id: string,
     data: Partial<CreateDepartmentDto>
   ): Promise<Department> => {
-    const response = await api.put<Department>(`/departments/${id}`, data);
+    const response = await api.put<ApiResponse<Department>>(
+      `/departments/${id}`,
+      data
+    );
     return response.data;
   },
 

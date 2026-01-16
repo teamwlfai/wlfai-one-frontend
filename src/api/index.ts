@@ -1,42 +1,42 @@
 import axios from "axios";
-import type { AxiosInstance, AxiosError } from "axios";
 
-const API_URL =
-  import.meta.env.FASTAPI_API_URL || "http://127.0.0.1:8000/api/v1";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const api: AxiosInstance = axios.create({
-  baseURL: API_URL,
+export interface ApiResponse<T> {
+  code: number;
+  message: string;
+  data: T;
+}
+
+const apiInstance = axios.create({
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
-    accept: "application/json",
   },
-  timeout: 10000,
 });
 
-// Request interceptor
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error: AxiosError) => {
-    return Promise.reject(error);
+// Attach token automatically
+apiInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem("authToken");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
-);
+  return config;
+});
 
-// Response interceptor
-api.interceptors.response.use(
+// Return response.data
+apiInstance.interceptors.response.use(
   (response) => response.data,
-  (error: AxiosError) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem("token");
-      window.location.href = "/login";
-    }
-    return Promise.reject(error.response?.data || error.message);
-  }
+  (error) => Promise.reject(error)
 );
 
+// Typed API wrapper
+type ApiInstance = {
+  get<T>(url: string, config?: any): Promise<T>;
+  post<T>(url: string, data?: any, config?: any): Promise<T>;
+  put<T>(url: string, data?: any, config?: any): Promise<T>;
+  delete<T>(url: string, config?: any): Promise<T>;
+};
+
+const api = apiInstance as unknown as ApiInstance;
 export default api;

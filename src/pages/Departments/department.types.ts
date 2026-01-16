@@ -32,10 +32,11 @@ export interface DepartmentResponse {
 
 export interface DepartmentsListResponse {
   departments: Department[];
-  total: number;
   page: number;
   page_size: number;
+  total: number;
   total_pages: number;
+  organization?: string;
 }
 
 // Form state
@@ -53,4 +54,23 @@ export interface DepartmentFormErrors {
   name?: string;
   description?: string;
   code?: string;
+}
+
+export interface GetDepartmentsParams {
+  page?: number;
+  limit?: number;
+  search?: string;
+  code?: string;
+  status?: string;
+  created_from?: string;
+  created_to?: string;
+  org_id?: string;
+  is_active?: boolean;
+}
+
+export interface DepartmentFormProps {
+  department?: Department | null;
+  onSuccess?: () => void;
+  formSubmitRef?: React.MutableRefObject<(() => Promise<void>) | null>;
+  formResetRef?: React.MutableRefObject<(() => void) | null>;
 }
